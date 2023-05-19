@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "637170170623",
+    "project_id": "razst-9b545",
+    "storage_bucket": "razst-9b545.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:637170170623:android:9f4086e769067679e8eaca",
+        "android_client_info": {
+          "package_name": "servolne.cima"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "637170170623-cqvdpcrlebubs1538lnt48bmo69kabrn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA75Zr48Kcxyef4P5i25GZIOzlsLkSeBjM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "637170170623-cqvdpcrlebubs1538lnt48bmo69kabrn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
