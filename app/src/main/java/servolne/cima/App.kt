@@ -23,7 +23,7 @@ class App : DaggerApplication()  {
 
 
     override fun applicationInjector(): AndroidInjector<out  DaggerApplication> =
-        servolne.cima.di.DaggerAppComponent.builder()
+        DaggerAppComponent.builder()
             .application(this)
             .build()
 
