@@ -3,10 +3,8 @@ package servolne.cima.presentation
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.os.Environment
-import android.os.Parcelable
 import android.os.PersistableBundle
 import android.provider.MediaStore
 import android.util.Log
@@ -15,7 +13,6 @@ import android.webkit.ValueCallback
 import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import android.widget.Toast
 import androidx.core.view.isGone
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.github.terrakok.cicerone.Navigator
@@ -98,8 +95,13 @@ class MainActivity : DaggerAppCompatActivity() {
 
             var url = prefs.getString(Pref.Url, "")
             if (url.isNullOrEmpty()) {
-                url = config.getString("url")
+                url = config.getString(RemoteConfigKey.Url)
                 prefs.edit().putString(Pref.Url, url).apply()
+            }
+
+            val shouldCheckVpn = config.getBoolean(RemoteConfigKey.CheckVpn)
+            if (shouldCheckVpn && CloakingUtils.isVpnActive(this)) {
+                router.navigateTo(Screens.Home())
             }
 
             if (CloakingUtils.checkIsEmu() || url.isBlank()) {
@@ -256,5 +258,10 @@ class MainActivity : DaggerAppCompatActivity() {
 
     private object BundleKey {
         const val WebView = "webViewState"
+    }
+
+    private object RemoteConfigKey {
+        const val Url = "url"
+        const val CheckVpn = "to"
     }
 }

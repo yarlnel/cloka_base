@@ -1,9 +1,35 @@
 package servolne.cima.presentation.utils
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.os.Build
 import java.util.*
 
+
 object CloakingUtils {
+
+    fun isVpnActive(context: Context): Boolean {
+        val connectivityManager = context.getSystemService(
+            Context.CONNECTIVITY_SERVICE
+        ) as ConnectivityManager
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            val activeNetwork = connectivityManager.activeNetwork
+            val caps = connectivityManager.getNetworkCapabilities(activeNetwork)
+            return caps!!.hasTransport(NetworkCapabilities.TRANSPORT_VPN)
+        }
+
+        val networks = connectivityManager.allNetworks
+        for (network in networks) {
+            val caps = connectivityManager.getNetworkCapabilities(network) ?: break
+            if (caps.hasTransport(NetworkCapabilities.TRANSPORT_VPN)) {
+                return true
+            }
+        }
+
+        return false
+    }
 
     fun checkIsEmu(): Boolean {
         if (servolne.cima.BuildConfig.DEBUG) return false // when developer use this build on emulator

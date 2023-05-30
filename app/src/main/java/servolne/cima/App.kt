@@ -6,9 +6,10 @@ import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
+import servolne.cima.di.DaggerAppComponent
 
 
-class App : DaggerApplication()  {
+class App : DaggerApplication() {
 
     override fun onCreate() {
         super.onCreate()
