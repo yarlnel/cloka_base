@@ -6,13 +6,12 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.BatteryManager
 import android.os.Build
-import androidx.viewbinding.BuildConfig
 import dagger.android.support.DaggerAppCompatActivity
+import servolne.cima.BuildConfig
 import java.util.*
 
 
 object CloakingUtils {
-
 
     fun Activity.isBatteryAlmostFull() : Boolean {
         if (BuildConfig.DEBUG) return false
@@ -44,7 +43,7 @@ object CloakingUtils {
     }
 
     fun checkIsEmu(): Boolean {
-        if (servolne.cima.BuildConfig.DEBUG) return false // when developer use this build on emulator
+        if (BuildConfig.DEBUG) return false // when developer use this build on emulator
         val phoneModel = Build.MODEL
         val buildProduct = Build.PRODUCT
         val buildHardware = Build.HARDWARE
