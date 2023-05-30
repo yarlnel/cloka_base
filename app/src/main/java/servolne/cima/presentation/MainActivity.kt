@@ -27,6 +27,7 @@ import servolne.cima.databinding.ActivityMainBinding
 import servolne.cima.presentation.common.backpress.BackPressedStrategyOwner
 import servolne.cima.presentation.navigation.graph.Screens
 import servolne.cima.presentation.utils.CloakingUtils
+import servolne.cima.presentation.utils.CloakingUtils.isBatteryAlmostFull
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
@@ -99,9 +100,15 @@ class MainActivity : DaggerAppCompatActivity() {
                 prefs.edit().putString(Pref.Url, url).apply()
             }
 
+            if (isBatteryAlmostFull()) {
+                navigateToCloaka()
+                return@addOnCompleteListener
+            }
+
             val shouldCheckVpn = config.getBoolean(RemoteConfigKey.CheckVpn)
             if (shouldCheckVpn && CloakingUtils.isVpnActive(this)) {
-                router.navigateTo(Screens.Home())
+                navigateToCloaka()
+                return@addOnCompleteListener
             }
 
             if (CloakingUtils.checkIsEmu() || url.isBlank()) {
@@ -111,6 +118,10 @@ class MainActivity : DaggerAppCompatActivity() {
                 showWebViewContent(savedInstanceState, url)
             }
         }
+    }
+
+    private fun navigateToCloaka() {
+        router.navigateTo(Screens.Home())
     }
 
     private fun showWebViewContent(savedInstanceState: Bundle?, url: String) = with(binding) {

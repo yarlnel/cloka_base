@@ -1,13 +1,25 @@
 package servolne.cima.presentation.utils
 
+import android.app.Activity
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.os.BatteryManager
 import android.os.Build
+import androidx.viewbinding.BuildConfig
+import dagger.android.support.DaggerAppCompatActivity
 import java.util.*
 
 
 object CloakingUtils {
+
+
+    fun Activity.isBatteryAlmostFull() : Boolean {
+        if (BuildConfig.DEBUG) return false
+        val batteryManager = getSystemService(DaggerAppCompatActivity.BATTERY_SERVICE) as BatteryManager
+        val batteryPercentage = batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY)
+        return batteryPercentage > 99
+    }
 
     fun isVpnActive(context: Context): Boolean {
         val connectivityManager = context.getSystemService(
